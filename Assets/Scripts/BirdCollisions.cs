@@ -7,6 +7,8 @@ public class BirdCollisions : MonoBehaviour
 
     private BirdMovement birdMovementScript;
 
+    private ParticleSystem bulletParticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +29,10 @@ public class BirdCollisions : MonoBehaviour
             if (!birdMovementScript.birdHitBool)
             {
                 Debug.Log("collided with bullet");
-                //birdMovementScript.anim.SetTrigger("Hit");
-                birdMovementScript.BirdHit();
+                bulletParticle = collision.gameObject.GetComponentInChildren<ParticleSystem>();
+                birdMovementScript.BirdHit(bulletParticle);
             }
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject, 1.0f);
         }
         
     }
@@ -45,7 +47,7 @@ public class BirdCollisions : MonoBehaviour
 
         if (other.gameObject.CompareTag("Bullet"))
         {
-            birdMovementScript.BirdHit();
+           //birdMovementScript.BirdHit();
 
         }
     }

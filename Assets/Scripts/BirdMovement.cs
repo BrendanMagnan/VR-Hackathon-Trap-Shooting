@@ -27,7 +27,10 @@ public class BirdMovement : MonoBehaviour
 
     public Animator anim;
     public AudioSource audioSource;
-    [SerializeField] AudioClip duckSpawnClip;
+    private Rigidbody rb;
+
+    //[SerializeField] AudioClip duckSpawnClip;
+
 
     void Start()
     {
@@ -46,6 +49,9 @@ public class BirdMovement : MonoBehaviour
         uiManager = GameObject.Find("UI Manager").GetComponent<UIManager>();
 
         anim = gameObject.GetComponent<Animator>();
+        audioSource = gameObject.GetComponent<AudioSource>();
+
+        rb = gameObject.GetComponent<Rigidbody>();
 
         LookAtTarget();
 
@@ -119,14 +125,18 @@ public class BirdMovement : MonoBehaviour
         Debug.Log("Bird Missed");
     }
 
-    public void BirdHit()
+    public void BirdHit(ParticleSystem ps)
     {
         birdHitBool = true;
 
         //activate ragdoll mode / allow object to fall
         //play 'hit' animation
         anim.SetTrigger("Hit");
-
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        ps.Play();
+        audioSource.Stop();
+        
         GameManager.ducksHitThisRound++;
         GameManager.totalDucksHit++;
 
@@ -134,7 +144,7 @@ public class BirdMovement : MonoBehaviour
 
         CheckDuckHuntScore();
 
-        Destroy(gameObject, 2.5f);
+        Destroy(gameObject, 1.5f);
 
         Debug.Log("Bird Hit");
     }

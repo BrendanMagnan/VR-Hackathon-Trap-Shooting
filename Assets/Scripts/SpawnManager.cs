@@ -45,7 +45,12 @@ public class SpawnManager : MonoBehaviour
     private UIManager uiManager;
     private GameManager gameManager;
 
-    
+    [SerializeField] ParticleSystem dhParticle1;
+    [SerializeField] ParticleSystem dhParticle2;
+    [SerializeField] ParticleSystem dhParticle3;
+    [SerializeField] ParticleSystem dhParticle4;
+    [SerializeField] ParticleSystem dhParticle5;
+
 
     void Start()
     {
@@ -60,17 +65,26 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnDuck(float timeToWait)
     {
-        
+        yield return new WaitForSeconds(timeToWait * 2.7f);
 
-        yield return new WaitForSeconds(timeToWait * 3);
+        randomBushNumber = Random.Range(0, 5);
 
+        if (randomBushNumber == 0)
+            dhParticle1.Play();
+        else if (randomBushNumber == 1)
+            dhParticle2.Play();
+        else if (randomBushNumber == 2)
+            dhParticle3.Play();
+        else if (randomBushNumber == 3)
+            dhParticle4.Play();
+        else if (randomBushNumber == 4)
+            dhParticle5.Play();
 
         uiManager.ammoImage1.SetActive(true);
         uiManager.ammoImage2.SetActive(true);
         uiManager.ammoImage3.SetActive(true);
 
         GameManager.ammo = 3;
-        randomBushNumber = Random.Range(0, 5);
 
         if (randomBushNumber == 0)
             Instantiate(birdPrefab, duckHuntBush1.transform.position, birdPrefab.transform.rotation);
