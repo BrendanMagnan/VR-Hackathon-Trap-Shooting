@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -27,6 +30,8 @@ public class SpawnManager : MonoBehaviour
 
     private float randomTimeBetweenSportingDiscs;
     [SerializeField] GameObject sportingDiscPrefab;
+    [SerializeField] GameObject sportingDiscPrefabMedium;
+    [SerializeField] GameObject sportingDiscPrefabLarge;
 
     public int duckNumber;
 
@@ -50,6 +55,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] ParticleSystem dhParticle3;
     [SerializeField] ParticleSystem dhParticle4;
     [SerializeField] ParticleSystem dhParticle5;
+
+    [SerializeField] TMP_Dropdown discSizeToggle;
+    [SerializeField] TextMeshProUGUI discSizeLabel;
+
+    private bool smallDiscs = true;
+    private bool mediumdiscs;
+    private bool largeDiscs;
 
 
     void Start()
@@ -85,6 +97,8 @@ public class SpawnManager : MonoBehaviour
         uiManager.ammoImage3.SetActive(true);
 
         GameManager.ammo = 3;
+
+        yield return new WaitForSeconds(timeToWait * .3f);
 
         if (randomBushNumber == 0)
             Instantiate(birdPrefab, duckHuntBush1.transform.position, birdPrefab.transform.rotation);
@@ -188,24 +202,54 @@ public class SpawnManager : MonoBehaviour
         GameManager.ammo = 2;
         uiManager.ReadyForTrapDisc();
 
-        //randomTrapXRotation = Random.Range(-20, -30);
-        //randomTrapYRotation = Random.Range(-45, 45);
+                                                                            //randomTrapXRotation = Random.Range(-12, -18);
+        randomTrapXRotation = Random.Range(-8, -10);
+
+        randomTrapYRotation = Random.Range(-45, 45);
 
         //Vector3 diagonal = new Vector3(1 * randomTrapXRotation, 1 * randomTrapYRotation, 0);
 
         //trapSpawnPoint.transform.RotateAround(trapRotateAround.transform.position, diagonal, 1);
-        //trapSpawnPoint.transform.RotateAround(trapRotateAround.transform.position, Vector3.up, randomTrapYRotation);
-        //trapSpawnPoint.transform.RotateAround(trapRotateAround.transform.position, Vector3.right, randomTrapXRotation);
+        trapSpawnPoint.transform.RotateAround(trapRotateAround.transform.position, Vector3.up, randomTrapYRotation);
+        trapSpawnPoint.transform.RotateAround(trapRotateAround.transform.position, Vector3.right, randomTrapXRotation);
 
         randomTrapDiscWaitTime = Random.Range(0, 3);
         //ready for disc ui indicator = false
 
         yield return new WaitForSeconds(timeToWait * randomTrapDiscWaitTime);
+        if (smallDiscs == true)
+            Instantiate(sportingDiscPrefab, trapSpawnPoint.transform.position, trapSpawnPoint.transform.rotation);
+        else if (mediumdiscs == true)
+            Instantiate(sportingDiscPrefabMedium, trapSpawnPoint.transform.position, trapSpawnPoint.transform.rotation);
+        else if (largeDiscs == true)
+            Instantiate(sportingDiscPrefabLarge, trapSpawnPoint.transform.position, trapSpawnPoint.transform.rotation);
 
-        Instantiate(sportingDiscPrefab, trapSpawnPoint.transform.position, trapSpawnPoint.transform.rotation);
-        //Debug.Log("X rotation: " + randomTrapXRotation + "/ Y Rotation: " + randomTrapYRotation);
+        Debug.Log("X rotation: " + randomTrapXRotation + "/ Y Rotation: " + randomTrapYRotation);
         GameManager.trapDiscs++;
 
+
+    }
+
+    public void SwitchDiscPrefab()
+    {
+        if (discSizeLabel.text == "Medium")
+        {
+            mediumdiscs = true;
+            smallDiscs = false;
+            largeDiscs = false;
+        }
+        else if (discSizeLabel.text == "Small")
+        {
+            mediumdiscs = false;
+            largeDiscs = false;
+            smallDiscs = true;
+        }
+        else if (discSizeLabel.text == "Large")
+        {
+            smallDiscs = false;
+            mediumdiscs = false;
+            largeDiscs = true;
+        }
     }
 
     

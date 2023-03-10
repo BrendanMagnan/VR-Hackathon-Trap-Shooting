@@ -88,14 +88,14 @@ public class BirdMovement : MonoBehaviour
             transform.LookAt(flyTarget9.transform);
 
         if(GameManager.duckHuntLevel == 0)
-            randomBirdSpeed = Random.Range(6, 8);
+            randomBirdSpeed = Random.Range(4, 6);
         else if (GameManager.duckHuntLevel == 1)
         {
-            randomBirdSpeed = Random.Range(8, 10);
+            randomBirdSpeed = Random.Range(6, 8);
         }
         else if (GameManager.duckHuntLevel == 2)
         {
-            randomBirdSpeed = Random.Range(10,12);
+            randomBirdSpeed = Random.Range(8,11);
         }
         
 

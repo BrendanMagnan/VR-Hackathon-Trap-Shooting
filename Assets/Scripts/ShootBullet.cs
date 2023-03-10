@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ShootBullet : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class ShootBullet : MonoBehaviour
     public GameObject pistolBullet;
     public Transform muzzle;
 
-    /*shotgun blast will have one birdshot BB out in front, followed by two layers 
+    /*shotgun blast will have one birdshot BB out in front, followed by three layers 
      * of 4 more BBs which will travel slowly outward, creating scattershot effect. 
      * */
 
@@ -26,6 +27,10 @@ public class ShootBullet : MonoBehaviour
     private float birdshotLayer3Speed2;
     private float birdshotLayer3Speed3;
     private float birdshotLayer3Speed4;
+    private float birdshotLayer4Speed1;
+    private float birdshotLayer4Speed2;
+    private float birdshotLayer4Speed3;
+    private float birdshotLayer4Speed4;
 
     public Transform birdshotSpawnPoint1;
     public Transform birdshotSpawnPoint2;
@@ -36,7 +41,13 @@ public class ShootBullet : MonoBehaviour
     public Transform birdshotSpawnPoint7;
     public Transform birdshotSpawnPoint8;
     public Transform birdshotSpawnPoint9;
-    
+    public Transform birdshotSpawnPoint10;
+    public Transform birdshotSpawnPoint11;
+    public Transform birdshotSpawnPoint12;
+    public Transform birdshotSpawnPoint13;
+
+    [SerializeField] XRDirectInteractor leftHandController;
+    [SerializeField] XRDirectInteractor rightHandController;
 
     public AudioSource audioSource;
     public AudioClip audioClip;
@@ -65,16 +76,19 @@ public class ShootBullet : MonoBehaviour
 
         if (GameManager.ammo > 0)
         {
-
-            birdshotLeaderSpeed = Random.Range(120, 135);
-            birdshotLayer2Speed1 = Random.Range(100, 119);
-            birdshotLayer2Speed2 = Random.Range(100, 119);
-            birdshotLayer2Speed3 = Random.Range(100, 119);
-            birdshotLayer2Speed4 = Random.Range(100, 119);
-            birdshotLayer3Speed1 = Random.Range(90, 99);
-            birdshotLayer3Speed2 = Random.Range(90, 99);
-            birdshotLayer3Speed3 = Random.Range(90, 99);
-            birdshotLayer3Speed4 = Random.Range(90, 99);
+                birdshotLeaderSpeed = Random.Range(300, 350);
+                birdshotLayer2Speed1 = Random.Range(285, 299);
+                birdshotLayer2Speed2 = Random.Range(285, 299);
+                birdshotLayer2Speed3 = Random.Range(285, 299);
+                birdshotLayer2Speed4 = Random.Range(285, 299);
+                birdshotLayer3Speed1 = Random.Range(270, 284);
+                birdshotLayer3Speed2 = Random.Range(270, 284);
+                birdshotLayer3Speed3 = Random.Range(270, 284);
+                birdshotLayer3Speed4 = Random.Range(270, 284);
+                birdshotLayer4Speed1 = Random.Range(255, 269);
+                birdshotLayer4Speed2 = Random.Range(255, 269);
+                birdshotLayer4Speed3 = Random.Range(255, 269);
+                birdshotLayer4Speed4 = Random.Range(255, 269);
 
             GameObject spawnedBuckshot1 = Instantiate(birdshotLeader, birdshotSpawnPoint1.position, muzzle.rotation);
             spawnedBuckshot1.GetComponent<Rigidbody>().velocity = birdshotLeaderSpeed * birdshotSpawnPoint1.forward;
@@ -103,7 +117,21 @@ public class ShootBullet : MonoBehaviour
             GameObject spawnedBuckshot9 = Instantiate(birdshotLayer2, birdshotSpawnPoint9.transform.position, birdshotSpawnPoint9.rotation);
             spawnedBuckshot9.GetComponent<Rigidbody>().velocity = birdshotLayer3Speed4 * birdshotSpawnPoint9.forward;
 
+            GameObject spawnedBuckshot10 = Instantiate(birdshotLayer2, birdshotSpawnPoint10.transform.position, birdshotSpawnPoint10.rotation);
+            spawnedBuckshot10.GetComponent<Rigidbody>().velocity = birdshotLayer4Speed1 * birdshotSpawnPoint10.forward; 
+
+            GameObject spawnedBuckshot11 = Instantiate(birdshotLayer2, birdshotSpawnPoint11.transform.position, birdshotSpawnPoint11.rotation);
+            spawnedBuckshot11.GetComponent<Rigidbody>().velocity = birdshotLayer4Speed2 * birdshotSpawnPoint11.forward; 
+
+            GameObject spawnedBuckshot12 = Instantiate(birdshotLayer2, birdshotSpawnPoint12.transform.position, birdshotSpawnPoint12.rotation);
+            spawnedBuckshot12.GetComponent<Rigidbody>().velocity = birdshotLayer4Speed3 * birdshotSpawnPoint12.forward; 
+
+            GameObject spawnedBuckshot13 = Instantiate(birdshotLayer2, birdshotSpawnPoint13.transform.position, birdshotSpawnPoint13.rotation);
+            spawnedBuckshot13.GetComponent<Rigidbody>().velocity = birdshotLayer4Speed4 * birdshotSpawnPoint13.forward;
+
             audioSource.PlayOneShot(audioClip);
+            rightHandController.SendHapticImpulse(.3f, .15f);
+            leftHandController.SendHapticImpulse(.8f, .15f);
             GameManager.ammo--;
 
             if (GameManager.ammo == 2) {

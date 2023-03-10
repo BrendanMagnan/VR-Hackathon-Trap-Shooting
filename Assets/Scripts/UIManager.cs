@@ -105,6 +105,8 @@ public class UIManager : MonoBehaviour
         ammoImage2.SetActive(true);
         ammoImage3.SetActive(true);
 
+        TurnOffRoundSigns();
+
         youWinImage.SetActive(false);
         youLoseImage.SetActive(false);
 
@@ -222,6 +224,8 @@ public class UIManager : MonoBehaviour
         ammoImage1.SetActive(true);
         ammoImage2.SetActive(true);
         ammoImage3.SetActive(true);
+
+        TurnOffRoundSigns();
 
         youWinImage.SetActive(false);
         youLoseImage.SetActive(false);
@@ -341,7 +345,10 @@ public class UIManager : MonoBehaviour
         else if (GameManager.trapDiscs == 5)
             trapMissedImages[4].SetActive(true);
         else if (GameManager.trapDiscs == 6)
+        {
             trapMissedImages[5].SetActive(true);
+            TurnOffRoundFeedback();
+        }
         else if (GameManager.trapDiscs == 7)
             trapMissedImages[6].SetActive(true);
         else if (GameManager.trapDiscs == 8)
@@ -351,7 +358,10 @@ public class UIManager : MonoBehaviour
         else if (GameManager.trapDiscs == 10)
             trapMissedImages[9].SetActive(true);
         else if (GameManager.trapDiscs == 11)
+        {
             trapMissedImages[10].SetActive(true);
+            TurnOffRoundFeedback();
+        }
         else if (GameManager.trapDiscs == 12)
             trapMissedImages[11].SetActive(true);
         else if (GameManager.trapDiscs == 13)
@@ -361,7 +371,10 @@ public class UIManager : MonoBehaviour
         else if (GameManager.trapDiscs == 15)
             trapMissedImages[14].SetActive(true);
         else if (GameManager.trapDiscs == 16)
+        {
             trapMissedImages[15].SetActive(true);
+            TurnOffRoundFeedback();
+        }
         else if (GameManager.trapDiscs == 17)
             trapMissedImages[16].SetActive(true);
         else if (GameManager.trapDiscs == 18)
@@ -371,7 +384,10 @@ public class UIManager : MonoBehaviour
         else if (GameManager.trapDiscs == 20)
             trapMissedImages[19].SetActive(true);
         else if (GameManager.trapDiscs == 21)
+        {
             trapMissedImages[20].SetActive(true);
+            TurnOffRoundFeedback();
+        }
         else if (GameManager.trapDiscs == 22)
             trapMissedImages[21].SetActive(true);
         else if (GameManager.trapDiscs == 23)

@@ -572,7 +572,6 @@ MonoBehaviour:
   birdHitBool: 0
   anim: {fileID: 0}
   audioSource: {fileID: 0}
-  duckSpawnClip: {fileID: 0}
 --- !u!54 &478991336084839730
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -633,9 +632,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 45
+  MaxDistance: 70
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

@@ -18,6 +18,10 @@ public class LocomotionController : MonoBehaviour
 
     public bool enableSniperRay { get; set; } = false;
 
+    [SerializeField] GameObject sniperRayTransform;
+    [SerializeField] GameObject attachTransform;
+    [SerializeField] GameObject attachTransformReset;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,16 @@ public class LocomotionController : MonoBehaviour
         if (leftRay)
         {
             leftRay.gameObject.SetActive(enableLeftTeleport && CheckIfActivated(leftRay));
+
+            /*
+            else if (enableSniperRay && CheckIfActivated(leftRay))
+            {
+                
+                leftRay.gameObject.SetActive(true);
+            }
+            attachTransform.transform.position = sniperRayTransform.transform.position;
+            */
+
         }
         if (rightRay)
         {
@@ -41,6 +55,11 @@ public class LocomotionController : MonoBehaviour
     {
         InputHelpers.IsPressed(controller.inputDevice, rayActivationButton, out bool isActivated, activationThreshold);
         return isActivated;
+    }
+
+    public void ReleaseLeftGrab()
+    {
+        attachTransform.transform.position = attachTransformReset.transform.position;
     }
 
 }
